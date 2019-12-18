@@ -53,5 +53,13 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log(orders);
   });
 
+  ordersTable.innerHTML += `
+              <tr class="order">
+                <td>1</td>
+                <td>Lorem</td>
+                <td class="doshirak"></td>
+                <td>2019-12-31</td>
+              </tr>
+  `;
 
 });
