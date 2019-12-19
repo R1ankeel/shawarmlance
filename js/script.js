@@ -18,6 +18,11 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("freeOrders", JSON.stringify(orders));
   };
 
+  const calcDeadline = deadline => {
+    const daysLeft = 10;
+    return daysLeft;
+  };
+
   const renderOrders = () => {
     ordersTable.textContent = "";
 
@@ -28,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <td>${i + 1}</td>
                 <td>${order.title}</td>
                 <td class="${order.currency}"></td>
-                <td>${order.deadline}</td>
+                <td>${calcDeadline(order.deadline)} дней</td>
               </tr>`;
     });
   };
@@ -96,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
     emailBlock.textContent = email;
     emailBlock.href = `mailto:${email}`;
     descriptionBlock.textContent = description;
-    deadlineBlock.textContent = deadline;
+    deadlineBlock.textContent = calcDeadline(deadline);
     currencyBlock.className = "currency_img";
     currencyBlock.classList.add(currency);
     countBlock.textContent = amount;
