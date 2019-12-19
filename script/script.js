@@ -12,11 +12,11 @@ document.addEventListener("DOMContentLoaded", () => {
     modalOrder = document.getElementById("order_read"),
     modalOrderActive = document.getElementById("order_active");
 
-  const orders = [];
+  const orders = JSON.parse(localStorage.getItem("freeOrders")) || [];
 
   const toStorage = () => {
-    
-  }
+    localStorage.setItem("freeOrders", JSON.stringify(orders));
+  };
 
   const renderOrders = () => {
     ordersTable.textContent = "";
@@ -38,27 +38,29 @@ document.addEventListener("DOMContentLoaded", () => {
     const modal = target.closest(".order-modal");
     const order = orders[modal.numberOrder];
 
+    const baseAction = () => {
+      modal.style.display = "none";
+      toStorage();
+      renderOrders();
+    };
+
     if (target.closest(".close") || target === modal) {
       modal.style.display = "none";
     }
 
     if (target.classList.contains("get-order")) {
       order.active = true;
-      modal.style.display = "none";
-      renderOrders();
+      baseAction();
     }
 
     if (target.id === "capitulation") {
       order.active = false;
-      modal.style.display = "none";
-      renderOrders();
+      baseAction();
     }
 
     if (target.id === "ready") {
       orders.splice(orders.indexOf(order), 1);
-
-      modal.style.display = "none";
-      renderOrders();
+      baseAction();
     }
   };
 
@@ -153,5 +155,6 @@ document.addEventListener("DOMContentLoaded", () => {
     formCustomer.reset();
 
     orders.push(obj);
+    toStorage();
   });
 });
