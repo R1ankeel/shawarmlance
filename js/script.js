@@ -18,8 +18,11 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.setItem("freeOrders", JSON.stringify(orders));
   };
 
-  const calcDeadline = deadline => {
-    const daysLeft = 10;
+  const calcDeadline = date => {
+    const deadline = new Date(date);
+    const today = Date.now();
+    const daysLeft = Math.floor((deadline - today) / 86400000);
+
     return daysLeft;
   };
 
